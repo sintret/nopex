@@ -12,23 +12,22 @@ router.get('/', async function(req, res, next) {
     height: 480,
     nopreview: true,
   });
-  var snapit  = await myCamera.snap();
+  //var snapit  = await myCamera.snap();
+  const myVideo = new PiCamera({
+    mode: 'video',
+    output: '/home/nopex/public/video/video.h264',
+    width: 1920,
+    height: 1080,
+    timeout: 5000, // Record for 5 seconds
+    nopreview: true,
+  });
 
-  myCamera.snap()
-      .then((result) => {
-        // Your picture was captured
-
-
-        console.log(result)
-
-      })
-      .catch((error) => {
-        // Handle your error
-      });
+  var recordVideo = myCamera.record();
 
   res.render('index', {
     title: snapit,
-    imageUrl : '/images/test.jpg',
+    //imageUrl : '/images/test.jpg',
+    videoUrl : '/video/video.h264'
   });
 
 });
