@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-var imagePath = appRoot+"/public/images";
 /* GET home page. */
 router.get('/', async function(req, res, next) {
+
+
+  var imagePath = appRoot+"/public/images";
 
   const PiCamera = require('pi-camera');
   const myCamera = new PiCamera({

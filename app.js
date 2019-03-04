@@ -24,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+
 global.appRoot = path.resolve(__dirname);
 
 // catch 404 and forward to error handler
