@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var ffmpeg = require('ffmpeg');
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
@@ -15,20 +16,46 @@ router.get('/', async function(req, res, next) {
   //var snapit  = await myCamera.snap();
   const myVideo = new PiCamera({
     mode: 'video',
-    output: '/home/nopex/public/video/video.h264',
+    output: '/home/nopex/public/video/videos.h264',
     width: 1920,
     height: 1080,
-    timeout: 5000, // Record for 5 seconds
+    timeout: 10000, // Record for 5 seconds
     nopreview: true,
   });
 
   var recordVideo = myVideo.record();
 
-  res.render('index', {
-    title: "express",
-    //imageUrl : '/images/test.jpg',
-    videoUrl : '/video/video.h264'
-  });
+  try {
+    new ffmpeg('home/nopex/public/video/videos.h264', function (err, video) {
+      if (!err) {
+        console.log('The video is ready to be processed');
+        //video.setVideoFormat('mp4');
+
+        video
+           // .setVideoSize('640x?', true, true, '#fff')
+           // .setAudioCodec('libfaac')
+            .setVideoFormat('mp4')
+            .save('home/nopex/public/video/videos.mp4', function (error, file) {
+              if (!error)
+                console.log('Video file: ' + file);
+
+
+              res.render('index', {
+                title: "express",
+                //imageUrl : '/images/test.jpg',
+                videoUrl : '/video/videos.mp4'
+              });
+            });
+
+      } else {
+        console.log('Error: ' + err);
+      }
+    });
+  } catch (e) {
+    console.log(e.code);
+    console.log(e.msg);
+  }
+
 
 });
 
