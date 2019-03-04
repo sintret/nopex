@@ -3,7 +3,7 @@ var router = express.Router();
 var ffmpeg = require('ffmpeg');
 
 /* GET home page. */
-router.get('/', async function(req, res, next) {
+router.get('/camera', async function(req, res, next) {
 
   const PiCamera = require('pi-camera');
   const myCamera = new PiCamera({
@@ -17,8 +17,8 @@ router.get('/', async function(req, res, next) {
   const myVideo = new PiCamera({
     mode: 'video',
     output: '/home/nopex/public/video/videos.h264',
-    width: 1920,
-    height: 1080,
+    width: 1280,
+    height: 720,
     timeout: 10000, // Record for 5 seconds
     nopreview: true,
   });
@@ -55,8 +55,38 @@ router.get('/', async function(req, res, next) {
     console.log(e.code);
     console.log(e.msg);
   }
-
-
 });
+
+
+router.get('/', async function (req,res) {
+
+  res.render('layouts/main', {
+    renderBody: '/index/index.ejs',
+    renderEnd:"/index/indexjs.ejs"
+  })
+})
+
+
+router.get('/play/:uid', async function (req,res) {
+
+  var uid = req.params.uid;
+
+  res.render('layouts/main', {
+
+    renderBody: '/index/play.ejs',
+    renderEnd:"/index/indexjs.ejs"
+  })
+})
+
+router.get('/photos', async function (req,res) {
+
+})
+
+
+
+router.get('/videos', async function (req,res) {
+
+})
+
 
 module.exports = router;

@@ -22,17 +22,29 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
 
 global.appRoot = path.resolve(__dirname);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+
+// default params here
+app.use(function (req, res, next) {
+// set locals, only providing error in development
+  res.locals.renderHead = "";
+  res.locals.renderBody = "";
+  res.locals.renderEnd = "";
+  res.locals.titleApp = "Nopex Video Streaming";
+  res.locals.decriptioj
+
+  next();
 });
+
+
+app.use('/', index);
+app.use('/users', users);
+
+
+
+
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -43,6 +55,13 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 module.exports = app;
