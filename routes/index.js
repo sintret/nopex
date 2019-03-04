@@ -25,7 +25,7 @@ router.get('/', async function(req, res, next) {
   var recordVideo = myVideo.record();
 
   res.render('index', {
-    title: snapit,
+    title: "express",
     //imageUrl : '/images/test.jpg',
     videoUrl : '/video/video.h264'
   });
