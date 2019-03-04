@@ -22,7 +22,7 @@ router.get('/', async function(req, res, next) {
     nopreview: true,
   });
 
-  var recordVideo = myCamera.record();
+  var recordVideo = myVideo.record();
 
   res.render('index', {
     title: snapit,
