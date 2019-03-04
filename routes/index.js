@@ -23,7 +23,7 @@ router.get('/', async function(req, res, next) {
     nopreview: true,
   });
 
-  var recordVideo = myVideo.record();
+  var recordVideo = await myVideo.record();
 
   try {
     new ffmpeg('home/nopex/public/video/videos.h264', function (err, video) {
