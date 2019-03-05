@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var ffmpeg = require('ffmpeg');
+
+
+
 
 /* GET home page. */
 router.get('/camera', async function (req, res, next) {
+    var ffmpeg = require('ffmpeg');
 
     const PiCamera = require('pi-camera');
     const myCamera = new PiCamera({
@@ -75,7 +78,7 @@ router.get('/play/:uid', async function (req, res) {
     req.session.uid = uid;
 
     res.render('layouts/main', {
-
+        uid:uid,
         renderBody: '/index/play.ejs',
         renderEnd: "/index/indexjs.ejs"
     })
