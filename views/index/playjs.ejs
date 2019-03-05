@@ -2,6 +2,6 @@
 <script type="text/javascript">
     var canvas = document.getElementById('video-canvas');
     var json = JSON.parse($("#json").html());
-    var url = 'wss://'+json.url;
+    var url = 'ws://'+json.url;
     var player = new JSMpeg.Player(url, {canvas: canvas});
 </script>

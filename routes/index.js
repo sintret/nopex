@@ -48,7 +48,7 @@ router.get('/play/:uid', async function (req, res) {
 
     //'ws://'+document.location.hostname+':8082/';
     var ws = 'ws://';
-    var ip = '68.183.236.92'
+    var ip = 'myjurnal.online'
     var url = ip;
 
     var unique = {
