@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -25,6 +26,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 global.appRoot = path.resolve(__dirname);
 
+app.use(session({
+  secret: "kampretmanapaham",
+  resave: true,
+  saveUninitialized: true,
+  // cookie: {maxAge: 24 * 60000}
+}))
 
 // default params here
 app.use(function (req, res, next) {
@@ -32,9 +39,8 @@ app.use(function (req, res, next) {
   res.locals.renderHead = "";
   res.locals.renderBody = "";
   res.locals.renderEnd = "";
-  res.locals.titleApp = "Nopex Video Streaming";
-  res.locals.decriptioj
-
+  res.locals.titleApp = "Video Streaming";
+  res.locals.decriptiotion = "Nopex Video Streaming";
   next();
 });
 

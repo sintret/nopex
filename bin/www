@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('nopex:server');
 var http = require('http');
+var io = require('./../components/io');
 
 /**
  * Get port from environment and store in Express.
