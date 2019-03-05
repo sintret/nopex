@@ -77,6 +77,8 @@ router.get('/play/:uid', async function (req, res) {
     var uid = req.params.uid;
     req.session.uid = uid;
 
+    console.log('UID : ' +uid)
+
     res.render('layouts/main', {
         uid:uid,
         renderBody: '/index/play.ejs',
