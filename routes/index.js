@@ -80,7 +80,7 @@ router.get('/play/:uid', async function (req, res) {
     res.render('layouts/main', {
         uid:uid,
         renderBody: '/index/play.ejs',
-        renderEnd: "/index/indexjs.ejs"
+        renderEnd: "/index/playjs.ejs"
     })
 })
 
