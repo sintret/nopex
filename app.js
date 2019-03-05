@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var events = require('events');
 
 var io = require('./components/io');
 
@@ -57,6 +58,8 @@ app.use(function (req, res, next) {
 
 //ffmpeg pushed stream in here to make a pipe
 app.all('/streamIn/:feed', function (req, res) {
+
+  console.log("ok streamIn")
   req.Emitter = initEmitter(req.params.feed)
   //req.params.feed = Feed Number (Pipe Number)
   res.connection.setTimeout(0);
