@@ -55,12 +55,12 @@ router.get('/play/:uid', async function (req, res) {
         anggrek10: {
             port1:8081,
             port2:8082,
-            url: url+':8002'
+            url: url+':8082'
         },
         mawar90: {
             port1:8083,
             port2:8084,
-            url: url+':8004'
+            url: url+':8084'
         },
         keyboard8: {
             port1:8085,
