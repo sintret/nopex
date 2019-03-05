@@ -1,31 +1,7 @@
-<script src="/socket.io/socket.io.js"></script>
-<!--
-<script src="http://cdn.shinobi.video/js/jsmpeg.pipe.js"></script>
--->
-<script src="/js/jsmpeg.pipe.js"></script>
-
-
-<script>
-    //start socket.io client connection
-    var socket = io();
-    //on socket.io connection success
-    socket.on('connect',function(){
-        //pretend this is the command you use to initiate getting H.264 (MPEG) data
-        socket.emit('f',{function:'getStream',feed: $("#uid").val()})
-    })
-    // initiate a player that can be piped to.
-    var player = new JSMpeg.Player('pipe',{
-        canvas:document.getElementById('canvas')
-    });
-    //on data from "h264" handle
-    socket.on('h264', function (data) {
-        // `data.buffer` is the raw video data from FFMPEG
-        // pretend you are getting data as follows
-        // var data = {buffer:ArrayBuffer}
-        player.write(data.buffer)
-    });
-
-    $("#start").on("click", function () {
-        alert("start play is a mallfunction now")
-    })
+<script src="/js/jsmpeg.min.js"></script>
+<script type="text/javascript">
+    var canvas = document.getElementById('video-canvas');
+    var json = JSON.parse($("#json").html());
+    var url = 'ws://'+json.url;
+    var player = new JSMpeg.Player(url, {canvas: canvas});
 </script>

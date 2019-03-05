@@ -7,7 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('nopex:server');
 var http = require('http');
-var io = require('./../components/io');
+var RECORD_STREAM = false;
 
 /**
  * Get port from environment and store in Express.
@@ -21,7 +21,42 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-io.attach(server);
+
+
+/**
+ * WebSocket server
+ */
+var WebSocket = require('express-ws');
+var expressWs = WebSocket(app, server);
+
+var clients = {}
+var connectionCount = 0;
+app.ws('/', function (ws, req) {
+
+  var params = req.url.substr(1).split('/');
+
+  console.log(req.query);
+  console.log(params)
+
+  ws.on('message', function (data) {
+    console.log("/" + msg)
+
+    clients[params] = {ws: ws}
+
+    if (req.socket.recording) {
+      req.socket.recording.write(data);
+    }
+
+  });
+
+  ws.on('close', function () {
+    connectionCount--;
+    console.log('The connection was closed!');
+
+  })
+});
+
+
 
 /**
  * Listen on provided port, on all network interfaces.
