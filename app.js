@@ -7,11 +7,9 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var events = require('events');
 
-var io = require('./components/io');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var Emitters = {}
 
 var app = express();
 

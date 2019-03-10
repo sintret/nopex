@@ -2,31 +2,36 @@
 <script type="text/javascript">
     var canvas = document.getElementById('video-canvas');
     var json = JSON.parse($("#json").html());
-    var url = 'ws://'+json.url;
+    var url = 'ws://' + json.url;
     var player = new JSMpeg.Player(url, {canvas: canvas});
-    
+    var downloadLink = $("#downloadLink");
+
     $("#record").on("click", function () {
 
         var $this = $(this);
-        if($this.hasClass("recording")){
+        if ($this.hasClass("recording")) {
+
             $this.removeClass("recording").html("Record Video");
 
             // Stop recording and create a download link
             var blob = player.stopRecording();
 
             var filename = 'jsmpeg-recording.mpg';
+
             var a = document.getElementById('downloadLink');
-            a.innerHTML = filename;
+            downloadLink.show();
             a.download = filename;
             a.href = window.URL.createObjectURL(blob);
 
         } else {
             $(this).html("Stop").addClass("recording");
-            player.startRecording(function(player){
+
+            player.startRecording(function (player) {
                 // Called when recording really starts; usually
                 // when the next intra frame is received
             });
         }
-
     })
+
+
 </script>

@@ -1,0 +1,96 @@
+<script src="js/Decoder.js"></script>
+<script src="js/YUVWebGLCanvas.js"></script>
+<script src="js/Player.js"></script>
+<script src="js/aurora.js"></script>
+<script src="js/aac.js"></script>
+<script src="js/ts.js"></script>
+<script type="text/javascript">
+    var wsUri = "ws://68.183.236.92:8084";
+    var websocket = new WebSocket(wsUri);
+    websocket.onopen = function() {
+        websocket.send(JSON.stringify({name: 'mawar'}));
+    };
+    websocket.onerror = function (error) {
+        alert(JSON.stringify(error))
+    };
+
+    websocket.onmessage = function (message) {
+        // var byteArray = new Uint8Array(message);
+        // var array = Array.prototype.slice.apply(byteArray);
+
+        //console.log(message.data)
+
+        //var blob = new Blob([new Uint8Array([1, 2, 3, 4, 5])]);
+        var blob = message.data;
+
+        var subBlob = blob.slice(2, 3);
+        var fr = new FileReader();
+        fr.onload = function (e) {
+            console.log(new Uint8Array(e.target.result)[0]);
+        };
+        fr.readAsArrayBuffer(subBlob);
+
+     //  var buf = new Uint8Array(message).buffer;
+       // var dv = new DataView(buf);
+
+
+      /*  var data = message;
+        var dv = new DataView(data);*/
+
+
+     /*   let buffer = message.data;
+
+        console.log(buffer instanceof ArrayBuffer);    // false
+
+        let dv = new DataView(buffer);    // TypeError: First argument to DataView constructor must be an ArrayBuffer
+
+        var width = dv.getUint16(0);
+        var height = dv.getUint16(2);
+        //var format = getPixelFormat(dv);
+        var len = dv.getUint32(20);
+
+        var log = 'We have width: ' + width +
+                'px, height: ' +
+                height + 'px, name length: ' + len;
+        console.log(log);*/
+
+        $("#loading").html(message.data)
+
+    }
+
+
+    //var player = new TSPlayer(new Stream('demo.ts'), false, '', false, 176, 256, videoReady, null, 'vCanvas');
+
+ /*   var player = new TSPlayer(new Stream(dv), false, '', 'auto', 0, 0, videoReady, 'aacAudio', 'vCanvas');
+
+    //var player = new TSPlayer(new Stream('ws://68.183.236.92:8084'), false, '', false, 0, 0, videoReady, 'aacAudio');
+    document.getElementById('videoContainer').appendChild(player.canvas);
+    document.getElementById('newVideoDiv').style.display = 'none';
+
+    player.onended = function () {
+        console.info("play ended.");
+    };
+
+    function startPlay() {
+        player.play();
+        return false;
+    }
+
+    function stopPlay() {
+        player.stop();
+        return false;
+    }
+
+    function videoReady(ok) {
+        console.info("video ready : " + ok);
+        document.getElementsByTagName('canvas')[0].style.width = '280px';
+
+        if (ok) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('playLink').style.display = '';
+        } else {
+            document.getElementById('loading').innerText = "Read file error.";
+        }
+    }
+*/
+</script>
